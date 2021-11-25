@@ -12,7 +12,7 @@ type
     arraylist = array [0..9,0..9] of boolean;
 var
     ary:arraylist;
-    i,i2,TotalBomb:integer;
+    h,k,times,i,i2,TotalBomb:integer;
 
 begin
     Randomize;
@@ -48,6 +48,19 @@ begin
         begin
             Writeln(ary[i,i2]);
         end;
+    end;
+    Repeat
+    Readln(h,k);
+    if (ary[h-1,k-1]) then
+    begin
+        Writeln('You Died....Game Over...');
+        break;
+    end;
+    times:=times+1;
+    Until (times=3);
+    if (times=3) then
+    begin
+        Writeln('You Win!');
     end;
     
 end.
