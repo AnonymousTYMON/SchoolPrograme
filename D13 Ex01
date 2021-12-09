@@ -1,0 +1,96 @@
+program bsearch_t;
+type
+  article = record
+    id : integer;
+    rating : integer;
+    popularity : integer;
+    name : string
+end;
+const
+  size = 50;
+  fname = 'articles.txt';
+var
+  articles : array [1..size] of article;
+  num_article : integer;
+
+procedure init;
+var
+  i : integer;
+begin
+    for i := 1 to size do
+    begin
+         articles[i].id := 0;
+         articles[i].rating := 0;
+         articles[i].popularity := 0;
+         articles[i].name := '';
+    end;
+end;
+
+procedure read_file;
+var
+    fh : text;
+begin
+    num_article := 0;
+    assign(fh, fname);
+    reset(fh);
+    while (not(eof(fh))) do
+    begin
+         num_article := num_article + 1;
+         readln(fh, articles[num_article].id,articles[num_article].rating,articles[num_article].popularity,articles[num_article].name);
+    end;
+    close(fh);
+    writeln('No. of articles in database: ', num_article);
+end;
+
+procedure b_search_id;
+var
+    head, tail, mid,pass : integer;
+    target, location : integer;
+    found : boolean;
+begin
+    head := 1;
+    tail := num_article;
+    found := false;
+    pass := 0;
+    write('Please input ID to search for: ');
+    readln(target);
+    repeat
+    begin
+        mid:=(head+tail) div 2;
+        pass := pass + 1;
+        if (articles[mid].id > target) then
+        begin
+            tail:=mid -1;
+        end
+        else if (articles[mid].id < target) then
+        begin
+            head := mid+1;
+        end
+        else
+        begin
+            location := mid;
+            found := true;
+        end;
+    end;
+    until found or (head > tail);
+
+    if found then
+    begin
+        writeln('Target found at location',location);
+        writeln;
+        writeln('ID: ',articles[location].id);
+        writeln('Name: ',articles[location].name);
+        writeln('Rating: ',articles[location].Rating);
+        writeln('popularity: ',articles[location].popularity);
+    end
+    else
+      writeln('Target not found.');
+end;
+
+begin
+  init;
+  read_file;
+  b_search_id;
+  readln();
+end.
+
