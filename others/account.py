@@ -57,7 +57,6 @@ def print_all():
 def setup():
     pass
 
-
 # ----------------------------------------------------------------
 def main():
     while True:
@@ -74,6 +73,4 @@ def main():
             print_all()
         else:
             exit()
-
-
 main()
