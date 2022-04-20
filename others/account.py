@@ -1,3 +1,5 @@
+import random
+import string
 account = [['name','username','password']]
 
 def show_menu():
@@ -27,8 +29,12 @@ def add_account():
     name = input()
     print("Enter username: ")
     username = input()
-    print("Enter password: ")
+    print("Enter password(input -1 to auto generate password): ")
     password = input()
+    if password == '-1':
+        characters = string.ascii_letters + string.digits + string.punctuation
+        password = ''.join(random.choice(characters) for i in range(16))
+    print('the password would be: ',password)
     account.append([name,username,password])
 
 
